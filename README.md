@@ -2,8 +2,8 @@
 
 Code, data and verified outputs for the manuscript:
 
-> **Post-Myocardial-Infarction Survival Modelling from Echocardiographic Variables: Cox Regression, Fractional Polynomials, Random Survival Forests, and Synthetic-Data Augmentation**
-> Md Abu Sufian, Wahiba Hamzi, Mai Ali, Amira Ali, Boumediene Hamzi
+> **Post-Myocardial-Infarction Survival Modelling from Echocardiographic Variables: Cox Regression, Fractional Polynomials, Random Survival Forests, and Synthetic-Data Augmentation**\
+> Md Abu Sufian, Wahiba Hamzi, Mai Ali, Amira Ali, Boumediene Hamzi\
 > Revised manuscript submitted to *Scientific Reports* (under review).
 
 ## Overview
