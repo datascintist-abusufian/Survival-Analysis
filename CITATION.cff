@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it using the metadata below."
+type: software
+title: "Post-Myocardial-Infarction Survival Modelling: A Reproducible Reassessment Framework"
+authors: [{family-names: "Sufian", given-names: "Md Abu", affiliation: "University of East London"}]
+version: 1.0.0
+date-released: 2026-10-18
+license: MIT
+repository-code: "https://github.com/datascintist-abusufian/Survival-Analysis"
+abstract: "Reproducibility workflow for the revised Scientific Reports manuscript on post-myocardial-infarction survival modelling using the UCI Echocardiogram dataset (n = 132): Kaplan-Meier analysis, Cox proportional hazards modelling, bootstrap optimism correction, nested fractional-polynomial analysis, Random Survival Forest modelling, censoring-aware Brier and integrated Brier score evaluation, and synthetic-data augmentation experiments."
+keywords: ["survival analysis", "myocardial infarction", "Cox proportional hazards", "fractional polynomials", "random survival forest", "reproducibility"]
