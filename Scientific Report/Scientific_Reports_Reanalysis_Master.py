@@ -21,9 +21,9 @@ def main():
     here=Path(__file__).resolve().parent
     data=args.data.resolve(); out=args.outdir.resolve(); out.mkdir(parents=True,exist_ok=True)
 
-    run([sys.executable,here/'Scientific_Reports_Reanalysis_Master_v1.py','--data',data,'--outdir',out/'real_data_core'])
+    run([sys.executable,here/'Real_Data_Core_Reanalysis.py','--data',data,'--outdir',out/'real_data_core'])
     run([sys.executable,here/'Nested_FP_Cox_Validation_v1.py'])
-    run([sys.executable,here/'Synthetic_Augmentation_Experiment_v1.py','--data',data,'--outdir',out/'synthetic_v1','--bandwidth','0.10','--global-ratio','5'])
+    run([sys.executable,here/'Synthetic_Augmentation_Experiment.py','--data',data,'--outdir',out/'synthetic_v1','--bandwidth','0.10','--global-ratio','5'])
     if args.standard_confirmation:
         run([sys.executable,here/'Standard_Package_Confirmation_sksurv.py','--data',data,'--outdir',out/'standard_confirmation'])
     else:
