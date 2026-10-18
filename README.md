@@ -1,71 +1,74 @@
 # Post-Myocardial-Infarction Survival Modelling: A Reproducible Reassessment Framework
 
-Code, data and verified outputs for the manuscript:
+This repository contains the reproducibility materials accompanying the revised Scientific Reports manuscript **“Post-Myocardial-Infarction Survival Modelling: A Reproducible Reassessment Framework.”**
 
-> **Post-Myocardial-Infarction Survival Modelling: A Reproducible Reassessment Framework**\
-> Md Abu Sufian, Wahiba Hamzi, Mai Ali, Amira Ali, Boumediene Hamzi\
-> Revised manuscript submitted to *Scientific Reports* (under review).
+The revision reassesses post-myocardial-infarction survival modelling using the original UCI Echocardiogram cohort and a transparent internal-validation workflow. The repository is intended to reproduce the reported statistical analyses and reviewer-requested validation checks; it is **not** a clinically validated prediction tool.
 
-## Overview
+## Data source
 
-This repository re-evaluates survival after myocardial infarction (MI) using the original UCI Echocardiogram cohort. The 132 original records are reconstructed from the 13-field UCI schema and analysed separately from any synthetic observations.
+The primary analyses use the **UCI Echocardiogram** dataset (132 source records).
 
-The analysis covers:
+- UCI dataset page: https://archive.ics.uci.edu/dataset/38/echocardiogram
+- Dataset DOI: https://doi.org/10.24432/C5QW24
+- UCI dataset license: **Creative Commons Attribution 4.0 International (CC BY 4.0)**
 
-- Kaplan–Meier estimation and multivariable Cox proportional hazards regression
-- Fractional-polynomial (FP) Cox modelling with nested repeated cross-validation
-- Random survival forests (RSF)
-- A smoothed-bootstrap synthetic-data fidelity and utility experiment, with all models evaluated on held-out **real** observations only
-- Confirmation of discrimination and calibration metrics (C-index, Brier score, integrated Brier score) with `scikit-survival`
+The reconstructed analysis copy is included only to make the revised analysis reproducible. The dataset remains subject to the UCI source license and is **not relicensed under the software license of this repository**.
 
-## Repository structure
+## Reproducibility package
+
+The analysis package is located in:
 
 ```text
 Scientific Report/
-├── Scientific_Reports_Reanalysis_Master.py   # main entry point (runs the full pipeline)
-├── Real_Data_Core_Reanalysis.py              # real-data core analysis (KM, Cox, FP, bootstrap optimism)
-├── Nested_FP_Cox_Validation_v1.py            # nested FP-Cox repeated cross-validation
-├── Synthetic_Augmentation_Experiment.py      # synthetic-data fidelity/utility experiment
-├── Standard_Package_Confirmation_sksurv.py   # scikit-survival confirmation of metrics
-├── requirements_reanalysis.txt               # Python dependencies
-├── README_REPRODUCIBILITY.md                 # detailed reproduction instructions
-├── outcome/                                  # source data and core-analysis outputs
-│   └── uci_echocardiogram_reconstructed_132.csv
-├── validation_outputs/                       # model-comparison and confirmation tables
-├── locked_results_ledger.json                # locked results reported in the manuscript
-├── blockdiagram/                             # workflow diagram
-├── Scientific_Reports_Revised_LaTeX_Bundle/  # LaTeX source and figures
-├── Scientific_Reports_Revised_Full_Manuscript.tex
-└── Scientific_Reports_Revised_Full_Manuscript.pdf
 ```
+
+The main entry point is:
+
+```text
+Scientific Report/Scientific_Reports_Reanalysis_Master.py
+```
+
+Detailed execution instructions and output provenance are provided in:
+
+```text
+Scientific Report/README_REPRODUCIBILITY.md
+```
+
+## Main analyses
+
+The release workflow covers:
+
+- dataset reconstruction/audit and missing-data accounting;
+- Kaplan–Meier survival estimation;
+- Cox proportional-hazards modelling and bootstrap optimism correction;
+- fractional-polynomial assessment with nested power selection;
+- Random Survival Forest comparison;
+- repeated 5-fold cross-validation with 5 repeats;
+- concordance index, IPCW Brier scores at 12/24/36 months, and IBS over 6–36 months;
+- cross-validated RSF permutation importance;
+- synthetic-data fidelity and held-out-real augmentation experiments;
+- synthetic bandwidth sensitivity analysis; and
+- deterministic generation of the final reviewer-facing comparison tables.
+
+Synthetic observations are generated only for methodological experiments. They are not treated as independent patients and are not external validation data.
 
 ## Quick start
 
-Python 3.11 or later is recommended.
+From the `Scientific Report` directory, install the recorded environment and run the complete release workflow:
 
 ```bash
-cd "Scientific Report"
-pip install -r requirements_reanalysis.txt
-python Scientific_Reports_Reanalysis_Master.py --outdir rerun_outputs --standard-confirmation
+python -m pip install -r requirements_reanalysis.txt
+python Scientific_Reports_Reanalysis_Master.py --full-release --outdir rerun_outputs
 ```
 
-The script reads `outcome/uci_echocardiogram_reconstructed_132.csv` by default and writes all regenerated outputs to `rerun_outputs/`. Omit `--standard-confirmation` to skip the `scikit-survival` step. See [`Scientific Report/README_REPRODUCIBILITY.md`](Scientific%20Report/README_REPRODUCIBILITY.md) for details.
+`scikit-survival` is required for the final standard-package confirmation and RSF permutation-importance audit.
 
-## Data
+## Release status
 
-The source data are the UCI Machine Learning Repository **Echocardiogram** dataset (Salzberg, 1989; [doi:10.24432/C5QW24](https://doi.org/10.24432/C5QW24)), distributed under CC BY 4.0. `uci_echocardiogram_reconstructed_132.csv` is a correctly parsed 132-record version of that dataset. Survival is measured in months after MI; `event = 1` denotes death and `event = 0` denotes censoring.
-
-**Note on earlier material.** An earlier version of this project used a 100,000-row synthetic extension of the dataset (Mendeley Data, [doi:10.17632/x5nmsprjc9.1](https://doi.org/10.17632/x5nmsprjc9.1)). That extension is **not** used in the revised analysis and should not be used to reproduce the manuscript results.
-
-## Citation
-
-If you use this code, please cite the archived release (DOI to be added after the Zenodo release) and the manuscript once published.
+This repository should be tagged only after the final rerun has been checked against the locked manuscript results. A Zenodo DOI can then be created from the tagged release and inserted into the manuscript Code Availability statement.
 
 ## License
 
-The code in this repository is released under the [MIT License](LICENSE). The UCI Echocardiogram data remain subject to their original CC BY 4.0 licence.
+Original analysis code in this repository is released under the **MIT License**; see `LICENSE`.
 
-## Contact
-
-Md Abu Sufian, University of East London — m.sufian@uel.ac.uk
-Corresponding author: Boumediene Hamzi — b.hamzi@imperial.ac.uk
+The UCI Echocardiogram data are distributed under **CC BY 4.0** by the UCI Machine Learning Repository and remain under that license.
