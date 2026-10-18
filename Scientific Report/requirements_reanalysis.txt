@@ -1,9 +1,8 @@
-# Reproducibility environment for Scientific Reports reanalysis
-numpy==2.3.5
-pandas==2.2.3
-scipy==1.17.0
-scikit-learn==1.8.0
-statsmodels==0.14.6
+# Reproducibility environment reported for the final Scientific Reports revision
+numpy==2.4.6
+pandas==3.0.6
+scipy==1.17.1
+scikit-learn==1.9.1
+statsmodels==0.15.0
+scikit-survival==0.28.0
 matplotlib==3.10.8
-# Required for the final standard-package RSF/Brier/IBS confirmation:
-scikit-survival
