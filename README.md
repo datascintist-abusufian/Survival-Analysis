@@ -90,42 +90,13 @@ Synthetic observations are not treated as independent validation subjects.
 
 ## Study Analysis Workflow
 
-```mermaid
-flowchart TD
-    A["<b>Original UCI Echocardiogram dataset</b><br/>n = 132 records"]
-    B["<b>Data reconstruction and audit</b><br/>• Correct dataset schema<br/>• Missing-value assessment<br/>• Survival-time definition<br/>• Death event = 1<br/>• Right-censoring / alive = 0"]
-    C["<b>Primary real-data analyses</b><br/>• Kaplan-Meier<br/>• Cox proportional hazards<br/>• Bootstrap optimism correction<br/>• Fractional-polynomial Cox<br/>• Nested FP-Cox validation<br/>• Random Survival Forest"]
-    D["<b>Synthetic-data experiments</b><br/><i>Derived from original / training data</i><br/>• Synthetic-data generation<br/>• Fidelity assessment<br/>• Bandwidth sensitivity<br/>• Synthetic-only experiments<br/>• Training-data augmentation"]
-    E["<b>Repeated validation</b><br/>5-fold CV × 5 repeats<br/>25 held-out folds"]
-    F["<b>Model comparison</b><br/>• Harrell concordance index<br/>• IPCW / censoring-aware Brier score<br/>• Integrated Brier score<br/>• Fold-paired model comparisons"]
-    G["<b>FP effect analyses</b><br/>Age and WMI"]
-    H["<b>RSF permutation importance</b>"]
-    I["<b>Final locked results</b>"]
-    J["<b>Scientific Reports revision</b>"]
+<p align="center">
+  <a href="figures/analysis_workflow.pdf">
+    <img src="figures/analysis_workflow.png" alt="Study analysis workflow: input echocardiographic data, reconstruction and audit, real-data and synthetic modelling arms, repeated cross-validation, performance, effect and importance analyses, and locked outputs" width="100%">
+  </a>
+</p>
 
-    A --> B
-    B --> C
-    B --> D
-    C --> E
-    D --> E
-    E --> F
-    F --> G
-    F --> H
-    G --> I
-    H --> I
-    I --> J
-
-    classDef data fill:#e8f1fb,stroke:#2b6cb0,color:#1a202c
-    classDef real fill:#e6f6ec,stroke:#2f855a,color:#1a202c
-    classDef synth fill:#fff4e5,stroke:#c05621,color:#1a202c
-    classDef eval fill:#f3e8fd,stroke:#6b46c1,color:#1a202c
-    classDef final fill:#edf2f7,stroke:#2d3748,color:#1a202c
-    class A,B data
-    class C real
-    class D synth
-    class E,F,G,H eval
-    class I,J final
-```
+**Figure 1 | Study analysis workflow.** **a**, Input: post-MI echocardiographic measurements from the UCI Echocardiogram dataset (n = 132); 2-D and M-mode echo panels are simulated for illustration only, as the dataset stores derived measurements (FS, EPSS, LVDD, WMI). **b**, Data reconstruction and audit: schema checks, missing-value map and survival endpoint definition (T = follow-up, δ = event indicator). **c**, Modelling arms: primary real-data survival models, with the Kaplan–Meier estimate of all patients, and secondary KDE-based synthetic-data experiments generated from training folds only. **d**, Repeated 5-fold cross-validation (5 repeats, 25 held-out real test folds). **e**, Performance by fold: Harrell's C-index and IPCW Brier score at 12, 24 and 36 months. **f**, Fractional-polynomial (FP) hazard-ratio curves for age and wall-motion index versus linear terms, and cross-validated RSF permutation importance. **g**, Locked results ledger and the revised manuscript. All insets are plotted from the reconstructed data and validation outputs in this repository. A vector PDF is available at [`figures/analysis_workflow.pdf`](figures/analysis_workflow.pdf).
 
 ## Repository Structure
 
