@@ -1,0 +1,341 @@
+{
+  "project": "Scientific Reports Major Revision - Echocardiogram Survival Analysis",
+  "status": "working locked-results ledger",
+  "source_dataset": {
+    "name": "UCI Echocardiogram",
+    "raw_records": 132,
+    "valid_survival_status_records": 130,
+    "deaths": 88,
+    "censored": 42,
+    "endpoint_definition": {
+      "time": "survival (months after myocardial infarction)",
+      "event": "death = 1",
+      "censoring": "still alive = 0 event"
+    }
+  },
+  "cox_complete_case_analysis": {
+    "n": 107,
+    "deaths": 75,
+    "censored": 32,
+    "predictors": [
+      "age_at_heart_attack",
+      "pericardial_effusion",
+      "fractional_shortening",
+      "epss",
+      "left_ventricular_end_diastolic",
+      "wall_motion_index"
+    ],
+    "hazard_ratios": {
+      "age_at_heart_attack": {
+        "HR": 0.99,
+        "CI95": [
+          0.961,
+          1.019
+        ],
+        "p": 0.486
+      },
+      "pericardial_effusion": {
+        "HR": 0.994,
+        "CI95": [
+          0.51,
+          1.934
+        ],
+        "p": 0.985
+      },
+      "fractional_shortening": {
+        "HR": 0.584,
+        "CI95": [
+          0.051,
+          6.748
+        ],
+        "p": 0.666
+      },
+      "epss": {
+        "HR": 1.022,
+        "CI95": [
+          0.971,
+          1.076
+        ],
+        "p": 0.408
+      },
+      "left_ventricular_end_diastolic": {
+        "HR": 0.911,
+        "CI95": [
+          0.642,
+          1.293
+        ],
+        "p": 0.603
+      },
+      "wall_motion_index": {
+        "HR": 0.826,
+        "CI95": [
+          0.399,
+          1.71
+        ],
+        "p": 0.607
+      }
+    },
+    "apparent_harrell_c_index": 0.533,
+    "bootstrap_optimism_estimate": 0.073,
+    "optimism_corrected_c_index": 0.46,
+    "repeated_cv_c_index_mean": 0.423,
+    "repeated_cv_c_index_sd": 0.08,
+    "ph_assumption_screening_p": {
+      "age_at_heart_attack": 0.502,
+      "pericardial_effusion": 0.963,
+      "fractional_shortening": 0.586,
+      "epss": 0.915,
+      "left_ventricular_end_diastolic": 0.93,
+      "wall_motion_index": 0.231
+    }
+  },
+  "kaplan_meier": {
+    "n": 130,
+    "survival_estimates": {
+      "12_months": 0.917,
+      "24_months": 0.701,
+      "36_months": 0.266,
+      "48_months": 0.11
+    },
+    "median_survival_months": 29,
+    "approx_95CI_months": [
+      26,
+      33
+    ],
+    "max_observed_followup_months": 57
+  },
+  "fractional_polynomial_analysis": {
+    "status": "verified for current rerun",
+    "aic": {
+      "all_linear_cox": 525.149,
+      "best_age_fp1_age^-0.5": 525.138,
+      "best_wmi_fp1_wmi^3": 525.046,
+      "best_joint_fp1_age^-1_plus_wmi^3": 525.032,
+      "best_age_fp2_age^-2_plus_age^3": 527.117,
+      "best_wmi_fp2_repeated_wmi^3": 526.932
+    },
+    "best_joint_fp1": {
+      "age_power": -1,
+      "wmi_power": 3,
+      "age_p": 0.487,
+      "wmi_p": 0.577,
+      "delta_aic_vs_linear": 0.117,
+      "interpretation": "No meaningful evidence that nonlinear FP transformations improve model fit."
+    }
+  },
+  "rsf_audit": {
+    "status": "provisional pending standard-package confirmation",
+    "full_fit": {
+      "n_estimators": 500,
+      "min_terminal_node_size": 10,
+      "max_depth": 5,
+      "mtry": 2,
+      "split_rule": "log-rank",
+      "terminal_hazard": "Nelson-Aalen",
+      "apparent_c_index": 0.738
+    },
+    "repeated_5fold_5repeat_validation": {
+      "cox_c_index_mean": 0.426,
+      "cox_c_index_sd": 0.093,
+      "rsf_c_index_mean": 0.438,
+      "rsf_c_index_sd": 0.076,
+      "rsf_minus_cox_c_index_mean_difference": 0.0119,
+      "rsf_minus_cox_c_index_95CI": [
+        -0.0157,
+        0.0395
+      ],
+      "paired_p_approx": 0.38,
+      "cox_brier_12m": 0.082,
+      "rsf_brier_12m": 0.081,
+      "cox_brier_24m": 0.233,
+      "rsf_brier_24m": 0.229,
+      "cox_brier_36m": 0.215,
+      "rsf_brier_36m": 0.202,
+      "cox_ibs_6_36m": 0.172,
+      "rsf_ibs_6_36m": 0.167,
+      "rsf_minus_cox_ibs_mean_difference": -0.0053,
+      "rsf_minus_cox_ibs_95CI_approx": [
+        -0.0111,
+        0.0006
+      ],
+      "paired_p_approx_ibs": 0.076
+    },
+    "cv_permutation_importance_delta_c_index": {
+      "fractional_shortening": -0.006,
+      "epss": -0.01,
+      "pericardial_effusion": -0.014,
+      "age_at_heart_attack": -0.014,
+      "left_ventricular_end_diastolic": -0.038,
+      "wall_motion_index": -0.043
+    },
+    "interpretation": "Marked apparent-to-validated performance drop indicates overfitting; no stable positive out-of-sample permutation importance."
+  },
+  "brier_ibs": {
+    "status": "provisional pending standard-package confirmation",
+    "earlier_repeated_cv_estimates": {
+      "brier_12m": 0.082,
+      "brier_24m": 0.231,
+      "brier_36m": 0.222,
+      "ibs_6_36m": 0.171
+    }
+  },
+  "synthetic_data": {
+    "status": "retain as research component but regenerate correctly",
+    "current_100k_file_status": "not manuscript-valid",
+    "old_generation_issue": "99,938 synthetic rows generated from 62 incorrectly parsed complete cases using marginal random draws plus randomly simulated extra variables.",
+    "future_plan": "Regenerate synthetic data from correctly parsed real variables and evaluate fidelity and train-on-synthetic/test-on-real utility."
+  },
+  "removed_or_superseded_results": {
+    "c_index_0_86": "removed - target leakage via age_timedep = age * survival",
+    "brier_0_141": "removed until reproducibly recalculated",
+    "placeholder_30day_to_5year_survival_values": "removed",
+    "old_fp_coefficient_7_425_and_related_claims": "removed/superseded",
+    "old_rsf_vimp_claims": "removed/superseded",
+    "causal_smoking_analysis": "remove - synthetic treatment/outcome variables",
+    "bayesian_survival_current_version": "remove or fully rebuild - censoring not handled correctly",
+    "invented_extra_clinical_variables": [
+      "ejection_fraction",
+      "heart_rate",
+      "systolic_bp",
+      "diastolic_bp",
+      "smoking_status",
+      "cholesterol_level",
+      "diabetes_status"
+    ]
+  },
+  "fractional_polynomial_nested_validation": {
+    "status": "locked for current real-data rerun",
+    "validation": "5-fold cross-validation repeated 5 times; FP powers selected within each training fold",
+    "c_index_mean": 0.431776,
+    "c_index_sd": 0.075217,
+    "brier_12m_mean": 0.081566,
+    "brier_24m_mean": 0.229656,
+    "brier_36m_mean": 0.217455,
+    "ibs_6_36m_mean": 0.170481,
+    "interpretation": "No predictive improvement over linear Cox; selected powers unstable across folds, so strong nonlinear age/WMI claims are not supported."
+  },
+  "synthetic_data_experiment_v1": {
+    "status": "locked as exploratory synthetic-data utility experiment; standard survival-package confirmation still pending for final manuscript metrics",
+    "real_complete_case_n": 107,
+    "real_events": 75,
+    "real_censored": 32,
+    "generator": "smoothed multivariate bootstrap with covariance-aware noise on continuous variables and donor-preserved binary event/pericardial-effusion status",
+    "variables": [
+      "survival",
+      "event",
+      "age",
+      "pericardial_effusion",
+      "fractional_shortening",
+      "epss",
+      "lvdd",
+      "wall_motion_index"
+    ],
+    "bandwidth_primary": 0.1,
+    "global_fidelity_ratio": 5,
+    "global_fidelity_synthetic_n": 535,
+    "validation": "5-fold repeated 5 times; generator fit inside real training fold only; all utility evaluated on held-out real observations",
+    "fidelity": {
+      "max_abs_continuous_SMD": 0.048645,
+      "max_KS_statistic": 0.142056,
+      "spearman_correlation_matrix_rmse": 0.034999,
+      "event_proportion_real": 0.700935,
+      "event_proportion_synthetic": 0.708411,
+      "pericardial_effusion_proportion_real": 0.186916,
+      "pericardial_effusion_proportion_synthetic": 0.170093,
+      "exact_duplicate_fraction_8dp": 0.0
+    },
+    "utility_primary_bandwidth_0_10": {
+      "real_only": {
+        "c_index_mean": 0.441651,
+        "c_index_sd": 0.072196,
+        "brier_12m": 0.081305,
+        "brier_24m": 0.229098,
+        "brier_36m": 0.214996,
+        "ibs_6_36m": 0.169069
+      },
+      "synthetic_only_5x": {
+        "c_index_mean": 0.457403,
+        "c_index_sd": 0.065125,
+        "brier_12m": 0.081329,
+        "brier_24m": 0.229961,
+        "brier_36m": 0.223004,
+        "ibs_6_36m": 0.171015
+      },
+      "real_plus_synth_1x": {
+        "c_index_mean": 0.456516,
+        "c_index_sd": 0.078665,
+        "ibs_6_36m": 0.171485
+      },
+      "real_plus_synth_2x": {
+        "c_index_mean": 0.440546,
+        "c_index_sd": 0.080697,
+        "ibs_6_36m": 0.168965
+      },
+      "real_plus_synth_5x": {
+        "c_index_mean": 0.434071,
+        "c_index_sd": 0.074211,
+        "ibs_6_36m": 0.171828
+      },
+      "real_plus_synth_10x": {
+        "c_index_mean": 0.447941,
+        "c_index_sd": 0.063212,
+        "ibs_6_36m": 0.169448
+      }
+    },
+    "bandwidth_sensitivity": [
+      0.05,
+      0.1,
+      0.2
+    ],
+    "interpretation": "Synthetic records preserve measured marginal/joint structure well, but no augmentation ratio or bandwidth gives a robust material improvement in held-out real-patient discrimination or prediction error. Synthetic data should therefore be presented as a methodological fidelity/utility experiment, not as enlarged clinical evidence."
+  },
+  "standard_package_confirmation": {
+    "status": "LOCKED",
+    "package": "scikit-survival 0.28.0",
+    "validation": "Repeated 5-fold CV, 5 repeats, 25 held-out folds",
+    "brier_method": "IPCW Brier score with administrative censoring for evaluation through 36 months",
+    "models": {
+      "cox_real_only": {
+        "c_index_mean": 0.442556,
+        "c_index_sd": 0.072655,
+        "brier_12m": 0.081543,
+        "brier_24m": 0.230411,
+        "brier_36m": 0.215681,
+        "ibs_6_36m": 0.169771
+      },
+      "fp_cox_nested": {
+        "c_index_mean": 0.432439,
+        "c_index_sd": 0.07525,
+        "brier_12m": 0.081804,
+        "brier_24m": 0.230964,
+        "brier_36m": 0.218142,
+        "ibs_6_36m": 0.171184
+      },
+      "rsf_real_only": {
+        "c_index_mean": 0.445939,
+        "c_index_sd": 0.079828,
+        "brier_12m": 0.082086,
+        "brier_24m": 0.227831,
+        "brier_36m": 0.205937,
+        "ibs_6_36m": 0.167128
+      },
+      "cox_real_plus_1x_synthetic": {
+        "c_index_mean": 0.457271,
+        "c_index_sd": 0.079057,
+        "brier_12m": 0.081642,
+        "brier_24m": 0.232746,
+        "brier_36m": 0.22179,
+        "ibs_6_36m": 0.172203
+      },
+      "cox_synthetic_only_5x": {
+        "c_index_mean": 0.457013,
+        "c_index_sd": 0.063418,
+        "brier_12m": 0.081581,
+        "brier_24m": 0.231232,
+        "brier_36m": 0.223862,
+        "ibs_6_36m": 0.171752
+      }
+    },
+    "interpretation": "No model demonstrated strong discrimination. RSF showed only marginal numerical improvement over real-only Cox. Nested FP-Cox did not improve performance. Synthetic augmentation did not provide a robust overall improvement because small C-index gains were not accompanied by improved IBS."
+  }
+}

@@ -1,0 +1,206 @@
+{
+  "project": "Scientific Reports Major Revision - Echocardiogram Survival Analysis",
+  "status": "working locked-results ledger",
+  "source_dataset": {
+    "name": "UCI Echocardiogram",
+    "raw_records": 132,
+    "valid_survival_status_records": 130,
+    "deaths": 88,
+    "censored": 42,
+    "endpoint_definition": {
+      "time": "survival (months after myocardial infarction)",
+      "event": "death = 1",
+      "censoring": "still alive = 0 event"
+    }
+  },
+  "cox_complete_case_analysis": {
+    "n": 107,
+    "deaths": 75,
+    "censored": 32,
+    "predictors": [
+      "age_at_heart_attack",
+      "pericardial_effusion",
+      "fractional_shortening",
+      "epss",
+      "left_ventricular_end_diastolic",
+      "wall_motion_index"
+    ],
+    "hazard_ratios": {
+      "age_at_heart_attack": {
+        "HR": 0.99,
+        "CI95": [
+          0.961,
+          1.019
+        ],
+        "p": 0.486
+      },
+      "pericardial_effusion": {
+        "HR": 0.994,
+        "CI95": [
+          0.51,
+          1.934
+        ],
+        "p": 0.985
+      },
+      "fractional_shortening": {
+        "HR": 0.584,
+        "CI95": [
+          0.051,
+          6.748
+        ],
+        "p": 0.666
+      },
+      "epss": {
+        "HR": 1.022,
+        "CI95": [
+          0.971,
+          1.076
+        ],
+        "p": 0.408
+      },
+      "left_ventricular_end_diastolic": {
+        "HR": 0.911,
+        "CI95": [
+          0.642,
+          1.293
+        ],
+        "p": 0.603
+      },
+      "wall_motion_index": {
+        "HR": 0.826,
+        "CI95": [
+          0.399,
+          1.71
+        ],
+        "p": 0.607
+      }
+    },
+    "apparent_harrell_c_index": 0.533,
+    "bootstrap_optimism_estimate": 0.073,
+    "optimism_corrected_c_index": 0.46,
+    "repeated_cv_c_index_mean": 0.423,
+    "repeated_cv_c_index_sd": 0.08,
+    "ph_assumption_screening_p": {
+      "age_at_heart_attack": 0.502,
+      "pericardial_effusion": 0.963,
+      "fractional_shortening": 0.586,
+      "epss": 0.915,
+      "left_ventricular_end_diastolic": 0.93,
+      "wall_motion_index": 0.231
+    }
+  },
+  "kaplan_meier": {
+    "n": 130,
+    "survival_estimates": {
+      "12_months": 0.917,
+      "24_months": 0.701,
+      "36_months": 0.266,
+      "48_months": 0.11
+    },
+    "median_survival_months": 29,
+    "approx_95CI_months": [
+      26,
+      33
+    ],
+    "max_observed_followup_months": 57
+  },
+  "fractional_polynomial_analysis": {
+    "status": "verified for current rerun",
+    "aic": {
+      "all_linear_cox": 525.149,
+      "best_age_fp1_age^-0.5": 525.138,
+      "best_wmi_fp1_wmi^3": 525.046,
+      "best_joint_fp1_age^-1_plus_wmi^3": 525.032,
+      "best_age_fp2_age^-2_plus_age^3": 527.117,
+      "best_wmi_fp2_repeated_wmi^3": 526.932
+    },
+    "best_joint_fp1": {
+      "age_power": -1,
+      "wmi_power": 3,
+      "age_p": 0.487,
+      "wmi_p": 0.577,
+      "delta_aic_vs_linear": 0.117,
+      "interpretation": "No meaningful evidence that nonlinear FP transformations improve model fit."
+    }
+  },
+  "rsf_audit": {
+    "status": "provisional pending standard-package confirmation",
+    "full_fit": {
+      "n_estimators": 500,
+      "min_terminal_node_size": 10,
+      "max_depth": 5,
+      "mtry": 2,
+      "split_rule": "log-rank",
+      "terminal_hazard": "Nelson-Aalen",
+      "apparent_c_index": 0.738
+    },
+    "repeated_5fold_5repeat_validation": {
+      "cox_c_index_mean": 0.426,
+      "cox_c_index_sd": 0.093,
+      "rsf_c_index_mean": 0.438,
+      "rsf_c_index_sd": 0.076,
+      "rsf_minus_cox_c_index_mean_difference": 0.0119,
+      "rsf_minus_cox_c_index_95CI": [
+        -0.0157,
+        0.0395
+      ],
+      "paired_p_approx": 0.38,
+      "cox_brier_12m": 0.082,
+      "rsf_brier_12m": 0.081,
+      "cox_brier_24m": 0.233,
+      "rsf_brier_24m": 0.229,
+      "cox_brier_36m": 0.215,
+      "rsf_brier_36m": 0.202,
+      "cox_ibs_6_36m": 0.172,
+      "rsf_ibs_6_36m": 0.167,
+      "rsf_minus_cox_ibs_mean_difference": -0.0053,
+      "rsf_minus_cox_ibs_95CI_approx": [
+        -0.0111,
+        0.0006
+      ],
+      "paired_p_approx_ibs": 0.076
+    },
+    "cv_permutation_importance_delta_c_index": {
+      "fractional_shortening": -0.006,
+      "epss": -0.01,
+      "pericardial_effusion": -0.014,
+      "age_at_heart_attack": -0.014,
+      "left_ventricular_end_diastolic": -0.038,
+      "wall_motion_index": -0.043
+    },
+    "interpretation": "Marked apparent-to-validated performance drop indicates overfitting; no stable positive out-of-sample permutation importance."
+  },
+  "brier_ibs": {
+    "status": "provisional pending standard-package confirmation",
+    "earlier_repeated_cv_estimates": {
+      "brier_12m": 0.082,
+      "brier_24m": 0.231,
+      "brier_36m": 0.222,
+      "ibs_6_36m": 0.171
+    }
+  },
+  "synthetic_data": {
+    "status": "retain as research component but regenerate correctly",
+    "current_100k_file_status": "not manuscript-valid",
+    "old_generation_issue": "99,938 synthetic rows generated from 62 incorrectly parsed complete cases using marginal random draws plus randomly simulated extra variables.",
+    "future_plan": "Regenerate synthetic data from correctly parsed real variables and evaluate fidelity and train-on-synthetic/test-on-real utility."
+  },
+  "removed_or_superseded_results": {
+    "c_index_0_86": "removed - target leakage via age_timedep = age * survival",
+    "brier_0_141": "removed until reproducibly recalculated",
+    "placeholder_30day_to_5year_survival_values": "removed",
+    "old_fp_coefficient_7_425_and_related_claims": "removed/superseded",
+    "old_rsf_vimp_claims": "removed/superseded",
+    "causal_smoking_analysis": "remove - synthetic treatment/outcome variables",
+    "bayesian_survival_current_version": "remove or fully rebuild - censoring not handled correctly",
+    "invented_extra_clinical_variables": [
+      "ejection_fraction",
+      "heart_rate",
+      "systolic_bp",
+      "diastolic_bp",
+      "smoking_status",
+      "cholesterol_level",
+      "diabetes_status"
+    ]
+  }
+}

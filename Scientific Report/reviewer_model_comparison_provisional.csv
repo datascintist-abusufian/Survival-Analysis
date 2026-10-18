@@ -1,0 +1,6 @@
+analysis,training_data,validation,c_index_mean,c_index_sd,brier_12m,brier_24m,brier_36m,ibs_6_36m,status
+Cox PH,Real only,Repeated 5-fold CV (5 repeats),0.4416506009138728,0.0721964441559463,0.0813052741954998,0.2290979801196063,0.2149963923171016,0.1690692742027539,Locked custom audit; standard-package metric confirmation pending
+FP-Cox,Real only; FP selected within training fold,Nested repeated 5-fold CV (5 repeats),0.4317755284510591,0.0752171038155875,0.0815657164234646,0.2296555223219496,0.2174551172327726,0.1704812560346776,Locked current rerun
+RSF,Real only,Repeated 5-fold CV (5 repeats),0.43763332759342183,0.07629468232428116,0.08146727532013749,0.22919675592234248,0.20238441894368775,0.1668156328293314,PROVISIONAL; must confirm with scikit-survival
+Cox PH,Synthetic only (5x smoothed bootstrap),Held-out real data; repeated 5-fold CV (5 repeats),0.4574026917222123,0.0651246359580753,0.0813286029829284,0.2299610082651091,0.2230035093737957,0.1710147101960467,Exploratory synthetic utility
+Cox PH,Real + 1x synthetic,Held-out real data; repeated 5-fold CV (5 repeats),0.4565163874835562,0.078665062194436,0.081417681204205,0.2314908869970966,0.2208742839655604,0.1714854388577806,Exploratory; no robust improvement

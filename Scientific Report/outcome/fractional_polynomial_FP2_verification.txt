@@ -1,0 +1,31 @@
+FP2 selected-model convergence verification
+
+Complete-case cohort: n=107, deaths=75
+
+Linear baseline
+AIC: 525.148893
+logLik: -256.574446
+finite parameters: True
+convergence warnings: 0
+max |score|: 1.52056e-12
+
+Best age FP2 (-2, 3)
+AIC: 527.116883
+logLik: -256.558441
+finite parameters: True
+convergence warnings: 0
+max |score|: 2.53203e-09
+
+Best WMI FP2 (3, 3)
+AIC: 526.931881
+logLik: -256.465940
+finite parameters: True
+convergence warnings: 0
+max |score|: 8.52651e-14
+
+Best joint age FP2 (-2,3) + WMI FP2 (3,3)
+AIC: 528.882368
+logLik: -256.441184
+finite parameters: True
+convergence warnings: 0
+max |score|: 1.60071e-09
