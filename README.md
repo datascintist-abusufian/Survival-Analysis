@@ -1,15 +1,15 @@
-Post-Myocardial-Infarction Survival Modelling
+# Post-Myocardial-Infarction Survival Modelling
 
-A Reproducible Reassessment Framework
+**A Reproducible Reassessment Framework**
 
 This repository contains the code, reconstructed analysis data, validation outputs, and reproducibility materials accompanying the revised Scientific Reports manuscript on post-myocardial-infarction survival modelling using the UCI Echocardiogram dataset.
 
-Data
+## Data
 
 The primary analyses use the UCI Echocardiogram dataset, comprising 132 original clinical records.
 
-UCI dataset DOI:
-https://doi.org/10.24432/C5QW24
+UCI dataset DOI:  
+<https://doi.org/10.24432/C5QW24>
 
 The dataset contains follow-up information for patients after myocardial infarction.
 
@@ -23,7 +23,7 @@ The original dataset is licensed under CC BY 4.0.
 
 A reconstructed analysis copy is included solely to support reproducibility and remains subject to the original dataset’s licensing and attribution requirements.
 
-Synthetic Data
+## Synthetic Data
 
 Synthetic observations used in this project are derived computationally from the original UCI data.
 
@@ -38,23 +38,23 @@ Synthetic data are used only for methodological experiments involving data fidel
 
 Where augmentation is evaluated within cross-validation, synthetic observations are generated from the corresponding training data and are not used to replace held-out real observations.
 
-Reproducibility
+## Reproducibility
 
 The complete revised analysis workflow is located in:
 
-Scientific Report/
+`Scientific Report/`
 
 The main execution script is:
 
-Scientific Report/Scientific_Reports_Reanalysis_Master.py
+`Scientific Report/Scientific_Reports_Reanalysis_Master.py`
 
 Detailed execution instructions, software requirements, analysis order, endpoint definitions, and output descriptions are provided in:
 
-Scientific Report/README_REPRODUCIBILITY.md
+`Scientific Report/README_REPRODUCIBILITY.md`
 
 The master workflow coordinates the corrected analyses and generates the principal numerical and graphical outputs used in the revised manuscript.
 
-Main Analyses
+## Main Analyses
 
 The repository reproduces the following analyses:
 
@@ -76,7 +76,7 @@ The repository reproduces the following analyses:
 * fold-paired model comparisons; and
 * final comparative model-performance summaries.
 
-Validation Framework
+## Validation Framework
 
 Model performance is assessed using held-out real observations.
 
@@ -88,61 +88,50 @@ The revised framework includes repeated cross-validation and reports survival-mo
 
 Synthetic observations are not treated as independent validation subjects.
 
-Study Analysis Workflow
+## Study Analysis Workflow
 
-Original UCI Echocardiogram dataset
-n = 132 records
-        │
-        ▼
-Data reconstruction and audit
-• Correct dataset schema
-• Missing-value assessment
-• Survival-time definition
-• Death event = 1
-• Right-censoring/alive = 0
-        │
-        ├───────────────────────────────┐
-        │                               │
-        ▼                               ▼
-Primary real-data analyses       Synthetic-data experiments
-                                Derived from original/training data
-Kaplan-Meier                    • Synthetic-data generation
-Cox proportional hazards       • Fidelity assessment
-Bootstrap optimism correction  • Bandwidth sensitivity
-Fractional-polynomial Cox      • Synthetic-only experiments
-Nested FP-Cox validation       • Training-data augmentation
-Random Survival Forest
-        │                               │
-        └──────────────┬────────────────┘
-                       ▼
-              Repeated validation
-             5-fold CV × 5 repeats
-                25 held-out folds
-                       │
-                       ▼
-               Model comparison
-• Harrell concordance index
-• IPCW/censoring-aware Brier score
-• Integrated Brier score
-• Fold-paired model comparisons
-                       │
-             ┌─────────┴─────────┐
-             ▼                   ▼
-      FP effect analyses    RSF permutation
-       Age and WMI            importance
-             │                   │
-             └─────────┬─────────┘
-                       ▼
-              Final locked results
-                       │
-                       ▼
-         Scientific Reports revision
+```mermaid
+flowchart TD
+    A["<b>Original UCI Echocardiogram dataset</b><br/>n = 132 records"]
+    B["<b>Data reconstruction and audit</b><br/>• Correct dataset schema<br/>• Missing-value assessment<br/>• Survival-time definition<br/>• Death event = 1<br/>• Right-censoring / alive = 0"]
+    C["<b>Primary real-data analyses</b><br/>• Kaplan-Meier<br/>• Cox proportional hazards<br/>• Bootstrap optimism correction<br/>• Fractional-polynomial Cox<br/>• Nested FP-Cox validation<br/>• Random Survival Forest"]
+    D["<b>Synthetic-data experiments</b><br/><i>Derived from original / training data</i><br/>• Synthetic-data generation<br/>• Fidelity assessment<br/>• Bandwidth sensitivity<br/>• Synthetic-only experiments<br/>• Training-data augmentation"]
+    E["<b>Repeated validation</b><br/>5-fold CV × 5 repeats<br/>25 held-out folds"]
+    F["<b>Model comparison</b><br/>• Harrell concordance index<br/>• IPCW / censoring-aware Brier score<br/>• Integrated Brier score<br/>• Fold-paired model comparisons"]
+    G["<b>FP effect analyses</b><br/>Age and WMI"]
+    H["<b>RSF permutation importance</b>"]
+    I["<b>Final locked results</b>"]
+    J["<b>Scientific Reports revision</b>"]
 
+    A --> B
+    B --> C
+    B --> D
+    C --> E
+    D --> E
+    E --> F
+    F --> G
+    F --> H
+    G --> I
+    H --> I
+    I --> J
 
-Repository Structure
+    classDef data fill:#e8f1fb,stroke:#2b6cb0,color:#1a202c
+    classDef real fill:#e6f6ec,stroke:#2f855a,color:#1a202c
+    classDef synth fill:#fff4e5,stroke:#c05621,color:#1a202c
+    classDef eval fill:#f3e8fd,stroke:#6b46c1,color:#1a202c
+    classDef final fill:#edf2f7,stroke:#2d3748,color:#1a202c
+    class A,B data
+    class C real
+    class D synth
+    class E,F,G,H eval
+    class I,J final
+```
+
+## Repository Structure
 
 Key reproducibility materials include:
 
+```text
 Scientific Report/
 │
 ├── Scientific_Reports_Reanalysis_Master.py
@@ -154,11 +143,11 @@ Scientific Report/
 ├── standard_package_comparison.py
 ├── final_summary_tables.py
 └── rsf_permutation_importance.py
-
+```
 
 Additional generated tables, figures, validation outputs, and intermediate files are produced by the reproducibility workflow.
 
-Outcome Definition
+## Outcome Definition
 
 The primary endpoint is post-myocardial-infarction survival/mortality as represented in the UCI Echocardiogram dataset.
 
@@ -166,7 +155,7 @@ The dataset does not contain a directly observed heart-failure endpoint.
 
 Accordingly, heart failure should be interpreted only as relevant clinical context and not as the primary observed outcome of these analyses.
 
-Fractional-Polynomial Analysis
+## Fractional-Polynomial Analysis
 
 Fractional-polynomial modelling is used to examine possible nonlinear relationships between continuous predictors and survival outcome.
 
@@ -177,7 +166,7 @@ Particular attention is given to:
 
 The revised workflow evaluates fractional-polynomial transformations and generates effect analyses comparing conventional linear specifications with selected nonlinear forms.
 
-Random Survival Forest Analysis
+## Random Survival Forest Analysis
 
 Random Survival Forest modelling is evaluated using held-out real observations within the validation framework.
 
@@ -190,27 +179,27 @@ The workflow includes:
 
 Variable-importance results are interpreted as predictive associations within this dataset and should not be interpreted as causal effects.
 
-Model Performance Evaluation
+## Model Performance Evaluation
 
 The revised reproducibility framework uses comparable held-out real-data validation wherever possible.
 
 Primary evaluation measures include:
 
-Concordance Index
+### Concordance Index
 
 Harrell’s concordance index is used to quantify survival-model discrimination.
 
-Brier Score
+### Brier Score
 
 Time-dependent Brier scores are calculated using censoring-aware methodology.
 
-Integrated Brier Score
+### Integrated Brier Score
 
 Integrated Brier score summarises prediction error across an evaluated follow-up interval.
 
 Performance results are reported with explicit reference to the model, validation framework, evaluation horizon, and underlying dataset to avoid ambiguity between previously reported concordance estimates.
 
-Synthetic-Data Experiments
+## Synthetic-Data Experiments
 
 Synthetic data are retained only as a secondary methodological component.
 
@@ -225,7 +214,7 @@ Synthetic-data results do not constitute external validation.
 
 The effective number of independent clinical observations remains the size of the original UCI cohort.
 
-Reproducibility Principles
+## Reproducibility Principles
 
 The revised analysis follows the following principles:
 
@@ -240,7 +229,7 @@ The revised analysis follows the following principles:
 9. All principal analyses are linked to executable scripts.
 10. Generated outputs are intended to be traceable to the reproducibility workflow.
 
-Interpretation and Limitations
+## Interpretation and Limitations
 
 This repository supports a reproducible reassessment of survival modelling in a small historical echocardiographic dataset.
 
@@ -256,7 +245,7 @@ Important limitations include:
 
 Results should therefore be interpreted primarily as a methodological and reproducibility analysis rather than as evidence of immediately generalisable clinical performance.
 
-Clinical Scope
+## Clinical Scope
 
 The analyses concern survival following myocardial infarction.
 
@@ -264,38 +253,38 @@ The repository does not claim to directly predict incident heart failure from th
 
 Where heart failure is discussed in the accompanying manuscript, it is considered in the broader clinical context of adverse cardiovascular outcomes following myocardial infarction.
 
-Code Availability
+## Code Availability
 
 The complete analysis code required to reproduce the revised results is provided in this repository.
 
 The recommended entry point is:
 
-Scientific Report/Scientific_Reports_Reanalysis_Master.py
+`Scientific Report/Scientific_Reports_Reanalysis_Master.py`
 
 Users should consult:
 
-Scientific Report/README_REPRODUCIBILITY.md
+`Scientific Report/README_REPRODUCIBILITY.md`
 
 before running the workflow.
 
-Data Availability
+## Data Availability
 
 The original Echocardiogram dataset is publicly available through the UCI Machine Learning Repository.
 
-Dataset DOI:
-https://doi.org/10.24432/C5QW24
+Dataset DOI:  
+<https://doi.org/10.24432/C5QW24>
 
 The reconstructed copy included in this repository is supplied for reproducibility and remains subject to the source dataset’s CC BY 4.0 licence.
 
-Citation
+## Citation
 
 Users of the original Echocardiogram dataset should cite the UCI Machine Learning Repository dataset using:
 
-https://doi.org/10.24432/C5QW24
+<https://doi.org/10.24432/C5QW24>
 
 The associated Scientific Reports manuscript should also be cited once final publication details are available.
 
-License
+## License
 
 Analysis code in this repository is released under the MIT License.
 
@@ -303,7 +292,7 @@ The UCI Echocardiogram dataset is distributed separately under CC BY 4.0 and is 
 
 Any reconstructed or redistributed copy of the dataset remains subject to the original dataset’s licensing and attribution requirements.
 
-Disclaimer
+## Disclaimer
 
 This repository is provided for research and reproducibility purposes.
 
